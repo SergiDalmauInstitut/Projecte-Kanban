@@ -23,6 +23,8 @@ namespace ProjecteKanban
         public MainWindow()
         {
             InitializeComponent();
+			
+			int n = 0;
         }
     }
     public class prova
