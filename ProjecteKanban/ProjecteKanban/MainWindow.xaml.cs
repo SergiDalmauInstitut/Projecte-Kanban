@@ -25,4 +25,8 @@ namespace ProjecteKanban
             InitializeComponent();
         }
     }
+    public class prova
+    {
+        public int intent;
+    }
 }
