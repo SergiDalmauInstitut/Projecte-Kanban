@@ -23,12 +23,28 @@ namespace ProjecteKanban
         public MainWindow()
         {
             InitializeComponent();
-			
-			int n = 0;
-        }
-    }
-    public class prova
-    {
 
+            int n_estats = 5;
+
+            for (int i = 0; i < n_estats; i++)
+            {
+                Border b = new Border();
+                b.BorderThickness = new Thickness(0.5);
+                b.BorderBrush = Brushes.Gray;
+                b.CornerRadius = new CornerRadius(10);
+                b.Margin = new Thickness(5);
+
+                TaskGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                Grid.SetColumn(b, i);
+                TaskGrid.Children.Add(b);
+            }
+
+            TaskGrid.Margin = new Thickness(5);
+        }
+
+        private void AfegirTascaClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
