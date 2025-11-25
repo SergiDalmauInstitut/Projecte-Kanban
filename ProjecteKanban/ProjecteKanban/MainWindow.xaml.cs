@@ -25,6 +25,7 @@ namespace ProjecteKanban
             InitializeComponent();
 			
 			int n = 0;
+			int n1 = 0;
         }
     }
 }

@@ -37,7 +37,8 @@
               "ToolTip": "C:\\Users\\sergi\\Documents\\Github\\Projecte-Kanban\\ProjecteKanban\\ProjecteKanban\\MainWindow.xaml",
               "RelativeToolTip": "ProjecteKanban\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T18:11:15.06Z"
+              "WhenOpened": "2025-11-12T18:11:15.06Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -47,7 +48,7 @@
               "RelativeDocumentMoniker": "ProjecteKanban\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\sergi\\Documents\\Github\\Projecte-Kanban\\ProjecteKanban\\ProjecteKanban\\MainWindow.xaml.cs",
               "RelativeToolTip": "ProjecteKanban\\MainWindow.xaml.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAxwBYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAuwBoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-12T18:11:14.939Z",
               "EditorCaption": ""
