@@ -28,8 +28,4 @@ namespace ProjecteKanban
 			int n1 = 0;
         }
     }
-    public class prova
-    {
-        private int Test;
-    }
 }
