@@ -44,7 +44,8 @@ namespace ProjecteKanban
 
         private void AfegirTascaClick(object sender, RoutedEventArgs e)
         {
-
+            FinestraEditarTasca f = new FinestraEditarTasca();
+            f.ShowDialog();
         }
     }
 }
