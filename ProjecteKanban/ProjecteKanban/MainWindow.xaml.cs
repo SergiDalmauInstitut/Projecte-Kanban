@@ -30,6 +30,6 @@ namespace ProjecteKanban
     }
     public class prova
     {
-
+        private int Test;
     }
 }
