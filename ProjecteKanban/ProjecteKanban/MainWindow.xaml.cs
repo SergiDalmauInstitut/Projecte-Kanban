@@ -1,51 +1,131 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProjecteKanban
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            GenerarColumnes();
 
-            int n_estats = 5;
+            // test
+            AfegirTascaDeProva();
+        }
+
+        private void GenerarColumnes()
+        {
+            string[] nomsEstats = { "To Do", "In Progress", "Review", "Done" };
+            int n_estats = nomsEstats.Length;
 
             for (int i = 0; i < n_estats; i++)
             {
-                Border b = new Border();
-                b.BorderThickness = new Thickness(0.5);
-                b.BorderBrush = Brushes.Gray;
-                b.CornerRadius = new CornerRadius(10);
-                b.Margin = new Thickness(5);
-
                 TaskGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                Border b = new Border
+                {
+                    BorderThickness = new Thickness(1),
+                    BorderBrush = Brushes.LightGray,
+                    CornerRadius = new CornerRadius(5),
+                    Margin = new Thickness(5),
+                    Background = new SolidColorBrush(Color.FromRgb(240, 240, 240))
+                };
+
+                StackPanel columnaPanel = new StackPanel
+                {
+                    Margin = new Thickness(5),
+                    AllowDrop = true,
+                    Tag = i,
+                    Background = Brushes.Transparent
+                };
+
+                TextBlock titolColumna = new TextBlock
+                {
+                    Text = nomsEstats[i],
+                    FontWeight = FontWeights.Bold,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 0, 0, 10)
+                };
+
+                columnaPanel.Children.Add(titolColumna);
+
+                columnaPanel.Drop += Columna_Drop;
+                columnaPanel.DragOver += Columna_DragOver;
+
+                b.Child = columnaPanel;
                 Grid.SetColumn(b, i);
                 TaskGrid.Children.Add(b);
             }
-
-            TaskGrid.Margin = new Thickness(5);
         }
 
+        private void Columna_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(TascaItem)))
+            {
+                e.Effects = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None;
+            }
+            e.Handled = true;
+        }
+
+        private void Columna_Drop(object sender, DragEventArgs e)
+        {
+            TascaItem tascaArrossegada = e.Data.GetData(typeof(TascaItem)) as TascaItem;
+            StackPanel panellDesti = sender as StackPanel;
+
+            if (tascaArrossegada != null && panellDesti != null)
+            {
+                Panel pareAntic = VisualTreeHelper.GetParent(tascaArrossegada) as Panel;
+                if (pareAntic != null)
+                {
+                    if (pareAntic != panellDesti)
+                    {
+                        pareAntic.Children.Remove(tascaArrossegada);
+                        panellDesti.Children.Add(tascaArrossegada);
+                    }
+                }
+            }
+        }
         private void AfegirTascaClick(object sender, RoutedEventArgs e)
         {
             FinestraEditarTasca f = new FinestraEditarTasca();
-            f.ShowDialog();
+            bool? result = f.ShowDialog();
+
+            if (result == true)
+            {
+                Tasca novaTasca = f.TascaResultat;
+
+                TascaItem tItem = new TascaItem
+                {
+                    TascaData = novaTasca
+                };
+
+                if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
+                {
+                    sp.Children.Add(tItem);
+                }
+            }
+        }
+
+        private void AfegirTascaDeProva()
+        {
+            if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
+            {
+                Tasca tData = new Tasca("Moltes i moltes proves, estic fins els collons ja, joder", "Alta")
+                {
+                    Descripcio = "S'ha de refactoritzar el codi per utilitzar Patró MVVM.",
+                    Etiquetes = "Refactor, C#"
+                };
+
+                TascaItem t = new TascaItem { TascaData = tData };
+                sp.Children.Add(t);
+            }
         }
     }
 }

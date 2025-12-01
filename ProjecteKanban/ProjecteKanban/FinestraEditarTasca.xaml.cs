@@ -3,91 +3,38 @@ using System.Windows;
 
 namespace ProjecteKanban
 {
-    /// <summary>
-    /// Lógica de interacción para FinestraEditarTasca.xaml
-    /// </summary>
     public partial class FinestraEditarTasca : Window
     {
+        public Tasca TascaResultat { get; private set; }
+
         public FinestraEditarTasca()
         {
             InitializeComponent();
-            DataContext = this;
+
+            TascaResultat = new Tasca("Nova Tasca");
+            this.DataContext = TascaResultat;
+            this.Title = "Crear Nova Tasca";
         }
 
-        public static readonly DependencyProperty NomProperty =
-                    DependencyProperty.Register(
-                        "Nom",
-                        typeof(string),
-                        typeof(MainWindow),
-                        new PropertyMetadata(""));
-
-        public static readonly DependencyProperty DescripcioProperty =
-            DependencyProperty.Register(
-                "Descripcio",
-                typeof(string),
-                typeof(MainWindow),
-                new PropertyMetadata(""));
-
-        public static readonly DependencyProperty EtiquetesProperty =
-            DependencyProperty.Register(
-                "Etiquetes",
-                typeof(string),
-                typeof(MainWindow),
-                new PropertyMetadata(""));
-
-        public static readonly DependencyProperty DataIniciProperty =
-            DependencyProperty.Register(
-                "DataInici",
-                typeof(DateTime?),
-                typeof(MainWindow),
-                new PropertyMetadata(null));
-
-        public static readonly DependencyProperty DataFiProperty =
-            DependencyProperty.Register(
-                "DataFi",
-                typeof(DateTime?),
-                typeof(MainWindow),
-                new PropertyMetadata(null));
-
-        public string Nom
+        public FinestraEditarTasca(Tasca tascaExistents)
         {
-            get => (string)GetValue(NomProperty);
-            set => SetValue(NomProperty, value);
-        }
+            InitializeComponent();
 
-        public string Descripcio
-        {
-            get => (string)GetValue(DescripcioProperty);
-            set => SetValue(DescripcioProperty, value);
-        }
-
-        public string Etiquetes
-        {
-            get => (string)GetValue(EtiquetesProperty);
-            set => SetValue(EtiquetesProperty, value);
-        }
-
-        public DateTime? DataInici
-        {
-            get => (DateTime?)GetValue(DataIniciProperty);
-            set => SetValue(DataIniciProperty, value);
-        }
-
-        public DateTime? DataFi
-        {
-            get => (DateTime?)GetValue(DataFiProperty);
-            set => SetValue(DataFiProperty, value);
+            TascaResultat = tascaExistents;
+            this.DataContext = TascaResultat;
+            this.Title = "Editar Tasca: " + tascaExistents.Nom;
         }
 
         private void Finalitzar_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(
-                $"Nom: {Nom}\n" +
-                $"Descripció: {Descripcio}\n" +
-                $"Etiquetes: {Etiquetes}\n" +
-                $"Data Inici: {DataInici}\n" +
-                $"Data Fi: {DataFi}"
-            );
+            if (string.IsNullOrWhiteSpace(TascaResultat.Nom))
+            {
+                MessageBox.Show("El nom de la tasca no pot estar buit.", "Error de validació", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }
