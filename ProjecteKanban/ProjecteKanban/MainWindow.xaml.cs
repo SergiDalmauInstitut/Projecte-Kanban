@@ -105,20 +105,7 @@ namespace ProjecteKanban
             {
                 if (f.Afegir)
                 {
-                    Tasca novaTasca = f.TascaResultat;
-
-                    TascaVisual tItem = new TascaVisual
-                    {
-                        TascaData = novaTasca
-                    };
-
-                    if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
-                    {
-                        sp.Children.Add(tItem);
-                    }
-                } else
-                {
-                    //
+                    AfegirTasca(f.TascaResultat);
                 }
             }
         }
@@ -133,19 +120,10 @@ namespace ProjecteKanban
             }
         }
 
-        public void EliminarTasca(Tasca tasca)
+        public void EliminarTasca(TascaVisual tasca)
         {
-            for (int i = 0; i < TaskGrid.Children.Count; i++)
-            {
-                if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
-                {
-                    TascaVisual t = new TascaVisual { TascaData = tasca };
-                    if (sp.Children.Contains(t))
-                    {
-                        sp.Children.Remove(t);
-                    }
-                }
-            }
+            StackPanel sp = tasca.Parent as StackPanel;
+            sp.Children.Remove(tasca);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace ProjecteKanban
         public Tasca TascaResultat { get; private set; }
         public bool Afegir { get; private set; }
 
+        public TascaVisual TascaOriginal { get; set; }
+
         public FinestraEditarTasca()
         {
             InitializeComponent();
@@ -35,8 +37,6 @@ namespace ProjecteKanban
                 return;
             }
 
-            MainWindow W = new MainWindow();
-            W.AfegirTasca(TascaResultat);
             this.DialogResult = true;
             this.Afegir = true;
             this.Close();
@@ -44,10 +44,14 @@ namespace ProjecteKanban
 
         private void Eliminar_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow W = new MainWindow();
-            W.EliminarTasca(TascaResultat);
             this.DialogResult = true;
             this.Afegir = false;
+
+            if (Owner is MainWindow mw && TascaOriginal  != null)
+            {
+                mw.EliminarTasca(TascaOriginal);
+            }
+
             this.Close();
         }
     }

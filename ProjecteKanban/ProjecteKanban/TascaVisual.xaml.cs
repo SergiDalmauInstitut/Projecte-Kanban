@@ -32,6 +32,8 @@ namespace ProjecteKanban
         private void EditarTasca_Click(object sender, RoutedEventArgs e)
         {
             FinestraEditarTasca f = new FinestraEditarTasca(this.TascaData);
+            f.Owner = Application.Current.MainWindow;
+            f.TascaOriginal = this;
             f.ShowDialog();
         }
     }
