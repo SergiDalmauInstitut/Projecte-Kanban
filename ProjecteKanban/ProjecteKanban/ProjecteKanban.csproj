@@ -56,8 +56,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Tasca.cs" />
-    <Compile Include="TascaItem.xaml.cs">
-      <DependentUpon>TascaItem.xaml</DependentUpon>
+    <Compile Include="TascaVisual.xaml.cs">
+      <DependentUpon>TascaVisual.xaml</DependentUpon>
     </Compile>
     <Page Include="FinestraEditarTasca.xaml">
       <SubType>Designer</SubType>
@@ -78,7 +78,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TascaItem.xaml">
+    <Page Include="TascaVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

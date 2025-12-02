@@ -4,10 +4,10 @@ using System.Windows.Input;
 
 namespace ProjecteKanban
 {
-    public partial class TascaItem : UserControl
+    public partial class TascaVisual : UserControl
     {
         public static readonly DependencyProperty TascaDataProperty =
-            DependencyProperty.Register("TascaData", typeof(Tasca), typeof(TascaItem), new PropertyMetadata(null));
+            DependencyProperty.Register("TascaData", typeof(Tasca), typeof(TascaVisual), new PropertyMetadata(null));
 
         public Tasca TascaData
         {
@@ -15,7 +15,7 @@ namespace ProjecteKanban
             set => SetValue(TascaDataProperty, value);
         }
 
-        public TascaItem()
+        public TascaVisual()
         {
             InitializeComponent();
             this.DataContext = this;

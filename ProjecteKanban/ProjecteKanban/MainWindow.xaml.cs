@@ -63,7 +63,7 @@ namespace ProjecteKanban
 
         private void Columna_DragOver(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(TascaItem)))
+            if (e.Data.GetDataPresent(typeof(TascaVisual)))
             {
                 e.Effects = DragDropEffects.Move;
             }
@@ -76,7 +76,7 @@ namespace ProjecteKanban
 
         private void Columna_Drop(object sender, DragEventArgs e)
         {
-            TascaItem tascaArrossegada = e.Data.GetData(typeof(TascaItem)) as TascaItem;
+            TascaVisual tascaArrossegada = e.Data.GetData(typeof(TascaVisual)) as TascaVisual;
             StackPanel panellDesti = sender as StackPanel;
 
             if (tascaArrossegada != null && panellDesti != null)
@@ -101,7 +101,7 @@ namespace ProjecteKanban
             {
                 Tasca novaTasca = f.TascaResultat;
 
-                TascaItem tItem = new TascaItem
+                TascaVisual tItem = new TascaVisual
                 {
                     TascaData = novaTasca
                 };
@@ -123,7 +123,7 @@ namespace ProjecteKanban
                     Etiquetes = "Refactor, C#"
                 };
 
-                TascaItem t = new TascaItem { TascaData = tData };
+                TascaVisual t = new TascaVisual { TascaData = tData };
                 sp.Children.Add(t);
             }
         }
