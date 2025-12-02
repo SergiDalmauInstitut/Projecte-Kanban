@@ -6,18 +6,21 @@ namespace ProjecteKanban
 {
     public class Tasca : INotifyPropertyChanged
     {
+        private int _id;
         private string _nom;
         private string _descripcio;
         private string _etiquetes;
         private DateTime? _dataInici;
         private DateTime? _dataFi;
         private string _prioritat;
+        private string _estat;
 
-        public Tasca(string nom = "Nova Tasca", string prioritat = "Baixa")
+        public Tasca(string estat, string nom = "Nova Tasca", string prioritat = "Baixa")
         {
             _nom = nom;
             _prioritat = prioritat;
             _dataInici = DateTime.Today;
+            _estat = estat;
         }
 
         public string Nom
@@ -93,6 +96,19 @@ namespace ProjecteKanban
                 if (_prioritat != value)
                 {
                     _prioritat = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Estat
+        {
+            get => _estat;
+            set
+            {
+                if (_estat != value)
+                {
+                    _estat = value;
                     OnPropertyChanged();
                 }
             }

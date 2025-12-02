@@ -55,10 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Projecte.cs" />
     <Compile Include="Tasca.cs" />
     <Compile Include="TascaVisual.xaml.cs">
       <DependentUpon>TascaVisual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Usuari.cs" />
     <Page Include="FinestraEditarTasca.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

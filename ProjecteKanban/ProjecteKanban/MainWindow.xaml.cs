@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,22 +11,15 @@ namespace ProjecteKanban
         public MainWindow()
         {
             InitializeComponent();
-            GenerarColumnes();
+            Projecte proj = new Projecte("Test");
 
-            // test
-            AfegirTasca(new Tasca("Titol")
-            {
-                Descripcio = "test",
-                DataFi = DateTime.Now
-            });
+            GenerarColumnes(proj);
         }
 
-        private void GenerarColumnes()
+        private void GenerarColumnes(Projecte proj)
         {
-            string[] nomsEstats = { "To Do", "In Progress", "Review", "Done" };
-            int n_estats = nomsEstats.Length;
-
-            for (int i = 0; i < n_estats; i++)
+            List<string> estats = proj.getEstats();
+            for (int i = 0; i < estats.Count; i++)
             {
                 TaskGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
@@ -38,6 +32,9 @@ namespace ProjecteKanban
                     Background = new SolidColorBrush(Color.FromRgb(240, 240, 240))
                 };
 
+                ScrollViewer s = new ScrollViewer();
+                s.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+
                 StackPanel columnaPanel = new StackPanel
                 {
                     Margin = new Thickness(5),
@@ -48,7 +45,7 @@ namespace ProjecteKanban
 
                 TextBlock titolColumna = new TextBlock
                 {
-                    Text = nomsEstats[i],
+                    Text = estats[i],
                     FontWeight = FontWeights.Bold,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 0, 0, 10)
@@ -59,7 +56,8 @@ namespace ProjecteKanban
                 columnaPanel.Drop += Columna_Drop;
                 columnaPanel.DragOver += Columna_DragOver;
 
-                b.Child = columnaPanel;
+                b.Child = s;
+                s.Content = columnaPanel;
                 Grid.SetColumn(b, i);
                 TaskGrid.Children.Add(b);
             }
@@ -112,9 +110,8 @@ namespace ProjecteKanban
 
         public void AfegirTasca(Tasca tasca)
         {
-            if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
+            if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is ScrollViewer sv && sv.Content is StackPanel sp)
             {
-
                 TascaVisual t = new TascaVisual { TascaData = tasca };
                 sp.Children.Add(t);
             }
