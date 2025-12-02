@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace ProjecteKanban
@@ -6,6 +7,7 @@ namespace ProjecteKanban
     public partial class FinestraEditarTasca : Window
     {
         public Tasca TascaResultat { get; private set; }
+        public bool Afegir { get; private set; }
 
         public FinestraEditarTasca()
         {
@@ -25,7 +27,7 @@ namespace ProjecteKanban
             this.Title = "Editar Tasca: " + tascaExistents.Nom;
         }
 
-        private void Finalitzar_Click(object sender, RoutedEventArgs e)
+        private void Afegir_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TascaResultat.Nom))
             {
@@ -33,7 +35,19 @@ namespace ProjecteKanban
                 return;
             }
 
+            MainWindow W = new MainWindow();
+            W.AfegirTasca(TascaResultat);
             this.DialogResult = true;
+            this.Afegir = true;
+            this.Close();
+        }
+
+        private void Eliminar_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow W = new MainWindow();
+            W.EliminarTasca(TascaResultat);
+            this.DialogResult = true;
+            this.Afegir = false;
             this.Close();
         }
     }

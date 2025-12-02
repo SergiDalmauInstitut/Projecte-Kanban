@@ -13,7 +13,11 @@ namespace ProjecteKanban
             GenerarColumnes();
 
             // test
-            AfegirTascaDeProva();
+            AfegirTasca(new Tasca("Titol")
+            {
+                Descripcio = "test",
+                DataFi = DateTime.Now
+            });
         }
 
         private void GenerarColumnes()
@@ -99,32 +103,48 @@ namespace ProjecteKanban
 
             if (result == true)
             {
-                Tasca novaTasca = f.TascaResultat;
-
-                TascaVisual tItem = new TascaVisual
+                if (f.Afegir)
                 {
-                    TascaData = novaTasca
-                };
+                    Tasca novaTasca = f.TascaResultat;
 
-                if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
+                    TascaVisual tItem = new TascaVisual
+                    {
+                        TascaData = novaTasca
+                    };
+
+                    if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
+                    {
+                        sp.Children.Add(tItem);
+                    }
+                } else
                 {
-                    sp.Children.Add(tItem);
+                    //
                 }
             }
         }
 
-        private void AfegirTascaDeProva()
+        public void AfegirTasca(Tasca tasca)
         {
             if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
             {
-                Tasca tData = new Tasca("Moltes i moltes proves, estic fins els collons ja, joder", "Alta")
-                {
-                    Descripcio = "S'ha de refactoritzar el codi per utilitzar Patró MVVM.",
-                    Etiquetes = "Refactor, C#"
-                };
 
-                TascaVisual t = new TascaVisual { TascaData = tData };
+                TascaVisual t = new TascaVisual { TascaData = tasca };
                 sp.Children.Add(t);
+            }
+        }
+
+        public void EliminarTasca(Tasca tasca)
+        {
+            for (int i = 0; i < TaskGrid.Children.Count; i++)
+            {
+                if (TaskGrid.Children.Count > 0 && TaskGrid.Children[0] is Border b && b.Child is StackPanel sp)
+                {
+                    TascaVisual t = new TascaVisual { TascaData = tasca };
+                    if (sp.Children.Contains(t))
+                    {
+                        sp.Children.Remove(t);
+                    }
+                }
             }
         }
     }
